@@ -84,6 +84,7 @@ public class Menu {
      * Start the game
      */
     public Dice startGame() {
+        Scanner input = new Scanner(System.in);
         message("Start the game");
         int characterPosition = 1;
 
@@ -102,6 +103,16 @@ public class Menu {
             }
         }
         message("Winner");
+
+        message("Do you want to restart (type \"restart\") or close (type \"exit\") the game?");
+        String restartGame = exitGame(input);
+        if (restartGame.equals("Restart")) {
+            message("Restarting the game");
+            this.createCharacter();
+        } else {
+            System.exit(0);
+        }
+
         return new Dice();
     }
 }
