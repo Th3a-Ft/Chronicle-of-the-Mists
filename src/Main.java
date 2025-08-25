@@ -1,3 +1,7 @@
 public class Main {
-    Menu chooseCharacter=new Menu();
+    public static void main(String[] args) {
+        Menu menu = new Menu();
+        Character newCharacter = Menu.createCharacter();
+        System.out.println(newCharacter);
+    }
 }
