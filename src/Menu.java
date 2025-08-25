@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-
 public class Menu {
     /**
      * Display all the messages
@@ -87,17 +86,22 @@ public class Menu {
     public Dice startGame() {
         message("Start the game");
         int characterPosition = 1;
-        Dice dice = new Dice();
+
         while (characterPosition != 64) {
+            Dice dice = new Dice();
+            characterPosition += dice.getRollDice();
             if (characterPosition < 64) {
-                characterPosition += dice.getRollDice();
+                message("Move " + dice.getRollDice());
                 message("You are on the square " + characterPosition);
-            } else if (characterPosition>64) {
-                characterPosition =64-(characterPosition+ dice.getRollDice());
-            }else{
-                message("Winner!");
+
+            } else if (characterPosition > 64) {
+                characterPosition = 64 - (characterPosition - 64);
+                message("Move " + dice.getRollDice());
+                message("You are on the square " + characterPosition);
+
             }
         }
+        message("Winner");
         return new Dice();
     }
 }

@@ -5,6 +5,5 @@ public class Main {
         System.out.println(newCharacter);*/
         Game game = new Game();
         game.playGame();
-
     }
 }
