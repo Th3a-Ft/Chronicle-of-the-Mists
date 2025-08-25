@@ -1,3 +1,7 @@
 public class Dice {
-    int rollDice=(int)(Math.random()*6)+1;
+    private int rollDice=(int)(Math.random()*6)+1;
+
+    public int getRollDice(){
+        return rollDice;
+    }
 }

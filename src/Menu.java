@@ -1,8 +1,6 @@
 import java.util.Scanner;
 
-/**
- * Display various messages & display the menu at the beginning of the game
- */
+
 public class Menu {
     /**
      * Display all the messages
@@ -16,10 +14,14 @@ public class Menu {
     /**
      * Choose the character and display all the information about it
      * The player can name his character and update the info about his character
+     * The player can close the game at any time by typing "exit"
      * return object Character
      */
-    public static Character createCharacter() {
+    public Character createCharacter() {
         Scanner input = new Scanner(System.in);
+        /**
+         *While input is different of "exit" the game continue
+         */
         while (true) {
             message("You can close the game at any time by tipping \"exit\"");
             message("Choose your character: (type you choice)");
@@ -27,12 +29,6 @@ public class Menu {
 
             String characterChoice = exitGame(input);
 
-
-            if (characterChoice.equals("Witcher")) {
-                message("You choose to become a Witcher");
-            } else {
-                message("You choose to become a Warrior");
-            }
             message("You choose to be a " + characterChoice + ". Are you sure?");
             message("Yes or No");
             String changeType = exitGame(input);
@@ -46,7 +42,6 @@ public class Menu {
             message("Enter a name for your character: ");
             String name = exitGame(input);
 
-
             message("Name: " + name);
 
             message("Do you want to change your character?");
@@ -58,13 +53,23 @@ public class Menu {
                 name = exitGame(input);
             }
 
+            message("Do you want to start the game?");
+            message("Yes or No (close game)");
+            String startGame = exitGame(input);
+            if (startGame.equals("Yes")) {
+                message("Start the game");
+            } else {
+                System.exit(0);
+            }
+
             return new Character(name);
         }
     }
 
-
     /**
-     * Exit the game when selected
+     * Exit the game when "exit" is type in the fields
+     *
+     * @param input = text that the player typed
      */
     protected static String exitGame(Scanner input) {
         String text = input.nextLine();
@@ -79,7 +84,20 @@ public class Menu {
     /**
      * Start the game
      */
-    protected static void startGame() {
+    public Dice startGame() {
         message("Start the game");
+        int characterPosition = 1;
+        Dice dice = new Dice();
+        while (characterPosition != 64) {
+            if (characterPosition < 64) {
+                characterPosition += dice.getRollDice();
+                message("You are on the square " + characterPosition);
+            } else if (characterPosition>64) {
+                characterPosition =64-(characterPosition+ dice.getRollDice());
+            }else{
+                message("Winner!");
+            }
+        }
+        return new Dice();
     }
 }
