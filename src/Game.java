@@ -1,15 +1,15 @@
+/**
+ * Create a new game with the possibility to create a character and roll the dice
+ */
 public class Game {
-    //private Dice dice;
-    private Menu menu;
+     private Menu menu;
 
     public Game(){
-        //this.dice = new Dice();
         this.menu = new Menu();
     }
 
     public void playGame(){
         menu.createCharacter();
         menu.startGame();
-        //dice.getRollDice();
     }
 }

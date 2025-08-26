@@ -10,6 +10,7 @@ public class Menu {
         System.out.println(message);
     }
 
+
     /**
      * Choose the character and display all the information about it
      * The player can name his character and update the info about his character
@@ -18,24 +19,34 @@ public class Menu {
      */
     public Character createCharacter() {
         Scanner input = new Scanner(System.in);
+        String characterChoice;
         /**
          *While input is different of "exit" the game continue
          */
         while (true) {
             message("You can close the game at any time by tipping \"exit\"");
-            message("Choose your character: (type you choice)");
-            message("Witcher or Warrior");
+            message("Choose your character: Witcher or Warrior (type you choice)");
 
-            String characterChoice = exitGame(input);
+            characterChoice = exitGame(input);
 
-            message("You choose to be a " + characterChoice + ". Are you sure?");
-            message("Yes or No");
+            /*if(!characterChoice.equalsIgnoreCase("Witcher") && !characterChoice.equalsIgnoreCase("Warrior")) {
+                message("Error! Please choose a valid character (Warrior or Witcher)");
+                characterChoice = exitGame(input);
+            }*/
+
+            /**
+             * While the type of character is not valid an error is display
+             */
+
+            characterChoice = validateCharacterType(characterChoice);
+
+            message("You choose to be a " + characterChoice + ". Are you sure? (Yes / No)");
+
             String changeType = exitGame(input);
 
-            if (changeType.equals("No")) {
+            if (changeType.equalsIgnoreCase("No")) {
                 message("Change the type of your character (type Warrior or Witcher):");
-                characterChoice = exitGame(input);
-
+                characterChoice = validateCharacterType(characterChoice);
             }
 
             message("Enter a name for your character: ");
@@ -43,19 +54,19 @@ public class Menu {
 
             message("Name: " + name);
 
-            message("Do you want to change your character?");
-            message("Yes or No");
+            message("Do you want to change your character? (Yes / No)");
+
             String changeName = exitGame(input);
 
-            if (changeName.equals("Yes")) {
+            if (changeName.equalsIgnoreCase("Yes")) {
                 message("Change the name of your character");
                 name = exitGame(input);
             }
 
-            message("Do you want to start the game?");
-            message("Yes or No (close game)");
+            message("Do you want to start the game? (Yes / No, exit)");
+
             String startGame = exitGame(input);
-            if (startGame.equals("Yes")) {
+            if (startGame.equalsIgnoreCase("Yes")) {
                 message("Start the game");
             } else {
                 System.exit(0);
@@ -66,13 +77,30 @@ public class Menu {
     }
 
     /**
+     * Validate the type of character enter by the player
+     * @param characterChoice = first input of the player
+     * @return the characterChoice modified and correct
+     */
+    public String validateCharacterType(String characterChoice) {
+        Scanner input = new Scanner(System.in);
+        while (!characterChoice.equalsIgnoreCase("Warrior") && !characterChoice.equalsIgnoreCase("Witcher"))
+            try {
+                throw new IllegalArgumentException("Error! Please choose a type a valid answer");
+            } catch (IllegalArgumentException e) {
+                message("Error! Please choose a valid character (Warrior or Witcher)");
+                characterChoice = exitGame(input);
+            }
+        return characterChoice;
+    }
+
+    /**
      * Exit the game when "exit" is type in the fields
      *
      * @param input = text that the player typed
      */
     protected static String exitGame(Scanner input) {
         String text = input.nextLine();
-        if (text.equals("exit")) {
+        if (text.equalsIgnoreCase("exit")) {
             message("Exit the game");
             System.exit(0);
         }
@@ -82,6 +110,8 @@ public class Menu {
 
     /**
      * Start the game
+     * While the player is not on the square n°64, the game continue
+     * if the player lands on a square higher than 64, he moves backwards
      */
     public Dice startGame() {
         Scanner input = new Scanner(System.in);
@@ -106,7 +136,7 @@ public class Menu {
 
         message("Do you want to restart (type \"restart\") or close (type \"exit\") the game?");
         String restartGame = exitGame(input);
-        if (restartGame.equals("Restart")) {
+        if (restartGame.equalsIgnoreCase("Restart")) {
             message("Restarting the game");
             this.createCharacter();
         } else {
