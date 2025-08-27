@@ -1,3 +1,6 @@
+package fr.campus.chroniclesofthemists.game;
+import fr.campus.chroniclesofthemists.Main;
+
 /**
  * Create a new game with the possibility to create a character and roll the dice
  */

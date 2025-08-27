@@ -1,6 +1,14 @@
+package fr.campus.chroniclesofthemists.game;
+import fr.campus.chroniclesofthemists.character.Character;
+import fr.campus.chroniclesofthemists.character.Warrior;
+import fr.campus.chroniclesofthemists.character.Witcher;
+
 import java.util.Scanner;
+//package fr.campus.chroniclesofthemists.game;
 
 public class Menu {
+    private Character character;
+
     /**
      * Display all the messages
      *
@@ -20,11 +28,12 @@ public class Menu {
     public Character createCharacter() {
         Scanner input = new Scanner(System.in);
         String characterChoice;
+
         /**
          *While input is different of "exit" the game continue
          */
         while (true) {
-            message("You can close the game at any time by tipping \"exit\"");
+            message("You can close the game at any time by typing \"exit\"");
             message("Choose your character: Witcher or Warrior (type you choice)");
 
             characterChoice = exitGame(input);
@@ -33,10 +42,6 @@ public class Menu {
                 message("Error! Please choose a valid character (Warrior or Witcher)");
                 characterChoice = exitGame(input);
             }*/
-
-            /**
-             * While the type of character is not valid an error is display
-             */
 
             characterChoice = validateCharacterType(characterChoice);
 
@@ -54,7 +59,7 @@ public class Menu {
 
             message("Name: " + name);
 
-            message("Do you want to change your character? (Yes / No)");
+            message("Do you want to change your name's character? (Yes / No)");
 
             String changeName = exitGame(input);
 
@@ -72,12 +77,18 @@ public class Menu {
                 System.exit(0);
             }
 
-            return new Character(name);
+            if (characterChoice.equalsIgnoreCase("Witcher")) {
+                return this.character = new Witcher(name);
+            } else {
+                return this.character = new Warrior(name);
+            }
+
         }
     }
 
     /**
      * Validate the type of character enter by the player
+     *
      * @param characterChoice = first input of the player
      * @return the characterChoice modified and correct
      */
@@ -115,7 +126,11 @@ public class Menu {
      */
     public Dice startGame() {
         Scanner input = new Scanner(System.in);
-        message("Start the game");
+
+
+        message("Welcome young " + character.getName() + "!");
+        message(character.toString());
+        //message("You have " + character.setHP() + " HP & " + character.setAttack()+" attack points!");
         int characterPosition = 1;
 
         while (characterPosition != 64) {
