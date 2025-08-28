@@ -1,18 +1,24 @@
 package fr.campus.chroniclesofthemists.game;
+
 import fr.campus.chroniclesofthemists.Main;
+import fr.campus.chroniclesofthemists.exception.CharacterOutOfBoundException;
 
 /**
  * Create a new game with the possibility to create a character and roll the dice
  */
 public class Game {
-     private Menu menu;
+    private Menu menu;
 
-    public Game(){
+    public Game() {
         this.menu = new Menu();
     }
 
-    public void playGame(){
+    public void playGame() {
         menu.createCharacter();
-        menu.startGame();
+        try {
+            menu.startGame();
+        } catch (CharacterOutOfBoundException e) {
+            e.GameOver();
+        }
     }
 }

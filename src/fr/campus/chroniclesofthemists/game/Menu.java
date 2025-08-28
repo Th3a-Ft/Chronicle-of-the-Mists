@@ -1,10 +1,12 @@
 package fr.campus.chroniclesofthemists.game;
+
 import fr.campus.chroniclesofthemists.character.Character;
 import fr.campus.chroniclesofthemists.character.Warrior;
 import fr.campus.chroniclesofthemists.character.Witcher;
+import fr.campus.chroniclesofthemists.exception.CharacterOutOfBoundException;
 
 import java.util.Scanner;
-//package fr.campus.chroniclesofthemists.game;
+
 
 public class Menu {
     private Character character;
@@ -94,13 +96,12 @@ public class Menu {
      */
     public String validateCharacterType(String characterChoice) {
         Scanner input = new Scanner(System.in);
-        while (!characterChoice.equalsIgnoreCase("Warrior") && !characterChoice.equalsIgnoreCase("Witcher"))
-            try {
-                throw new IllegalArgumentException("Error! Please choose a type a valid answer");
-            } catch (IllegalArgumentException e) {
-                message("Error! Please choose a valid character (Warrior or Witcher)");
-                characterChoice = exitGame(input);
-            }
+        while (!characterChoice.equalsIgnoreCase("Warrior") && !characterChoice.equalsIgnoreCase("Witcher")) try {
+            throw new IllegalArgumentException("Error! Please choose a type a valid answer");
+        } catch (IllegalArgumentException e) {
+            message("Error! Please choose a valid character (Warrior or Witcher)");
+            characterChoice = exitGame(input);
+        }
         return characterChoice;
     }
 
@@ -124,40 +125,60 @@ public class Menu {
      * While the player is not on the square n°64, the game continue
      * if the player lands on a square higher than 64, he moves backwards
      */
-    public Dice startGame() {
+    public Dice startGame() throws CharacterOutOfBoundException {
         Scanner input = new Scanner(System.in);
 
 
         message("Welcome young " + character.getName() + "!");
         message(character.toString());
-        //message("You have " + character.setHP() + " HP & " + character.setAttack()+" attack points!");
         int characterPosition = 1;
 
+
         while (characterPosition != 64) {
-            Dice dice = new Dice();
-            characterPosition += dice.getRollDice();
-            if (characterPosition < 64) {
+            if (characterPosition > 64)
+                throw new CharacterOutOfBoundException();
+            else {
+                Dice dice = new Dice();
+                characterPosition += dice.getRollDice();
                 message("Move " + dice.getRollDice());
                 message("You are on the square " + characterPosition);
-
-            } else if (characterPosition > 64) {
-                characterPosition = 64 - (characterPosition - 64);
-                message("Move " + dice.getRollDice());
-                message("You are on the square " + characterPosition);
-
             }
         }
-        message("Winner");
 
-        message("Do you want to restart (type \"restart\") or close (type \"exit\") the game?");
-        String restartGame = exitGame(input);
-        if (restartGame.equalsIgnoreCase("Restart")) {
-            message("Restarting the game");
-            this.createCharacter();
-        } else {
-            System.exit(0);
+
+
+    /*while (characterPosition != 64) {
+        Dice dice = new Dice();
+        characterPosition += dice.getRollDice();
+        if (characterPosition < 64) {
+            message("Move " + dice.getRollDice());
+            message("You are on the square " + characterPosition);
+
+        } else if (characterPosition > 64) {
+            characterPosition = 64 - (characterPosition - 64);
+            message("Move " + dice.getRollDice());
+            message("You are on the square " + characterPosition);
+
         }
+    }*/
+    message("Winner");
 
-        return new Dice();
+    message("Do you want to restart (type \"restart\") or close (type \"exit\") the game?");
+
+    String restartGame = exitGame(input);
+        if(restartGame.equalsIgnoreCase("Restart"))
+
+    {
+        message("Restarting the game");
+        this.createCharacter();
+    } else
+
+    {
+        System.exit(0);
     }
+
+        return new
+
+    Dice();
+}
 }
