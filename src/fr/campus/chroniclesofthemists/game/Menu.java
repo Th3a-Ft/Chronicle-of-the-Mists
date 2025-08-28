@@ -123,7 +123,7 @@ public class Menu {
     /**
      * Start the game
      * While the player is not on the square n°64, the game continue
-     * if the player lands on a square higher than 64, he moves backwards
+     * if the player lands on a square higher than 64, an error is thrown
      */
     public Dice startGame() throws CharacterOutOfBoundException {
         Scanner input = new Scanner(System.in);
@@ -145,40 +145,17 @@ public class Menu {
             }
         }
 
+        message("Winner");
 
+        message("Do you want to restart (type \"restart\") or close (type \"exit\") the game?");
 
-    /*while (characterPosition != 64) {
-        Dice dice = new Dice();
-        characterPosition += dice.getRollDice();
-        if (characterPosition < 64) {
-            message("Move " + dice.getRollDice());
-            message("You are on the square " + characterPosition);
-
-        } else if (characterPosition > 64) {
-            characterPosition = 64 - (characterPosition - 64);
-            message("Move " + dice.getRollDice());
-            message("You are on the square " + characterPosition);
-
+        String restartGame = exitGame(input);
+        if (restartGame.equalsIgnoreCase("Restart")) {
+            message("Restarting the game");
+            this.createCharacter();
+        } else {
+            System.exit(0);
         }
-    }*/
-    message("Winner");
-
-    message("Do you want to restart (type \"restart\") or close (type \"exit\") the game?");
-
-    String restartGame = exitGame(input);
-        if(restartGame.equalsIgnoreCase("Restart"))
-
-    {
-        message("Restarting the game");
-        this.createCharacter();
-    } else
-
-    {
-        System.exit(0);
+        return new Dice();
     }
-
-        return new
-
-    Dice();
-}
 }

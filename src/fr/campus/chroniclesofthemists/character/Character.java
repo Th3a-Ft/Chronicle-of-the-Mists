@@ -1,9 +1,13 @@
 package fr.campus.chroniclesofthemists.character;
+import fr.campus.chroniclesofthemists.equipment.DefensiveEquipment;
+import fr.campus.chroniclesofthemists.equipment.OffensiveEquipment;
 
 abstract public class Character {
     protected String name;
     protected int hp;
     protected int attack;
+    protected OffensiveEquipment offensiveEquipment;
+    protected DefensiveEquipment defensiveEquipment;
 
     public Character(String name) {
         this.name=name;
