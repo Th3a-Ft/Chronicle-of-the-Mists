@@ -3,13 +3,13 @@ package fr.campus.chroniclesofthemists.game;
 import fr.campus.chroniclesofthemists.character.Character;
 import fr.campus.chroniclesofthemists.character.Warrior;
 import fr.campus.chroniclesofthemists.character.Witcher;
-import fr.campus.chroniclesofthemists.exception.CharacterOutOfBoundException;
+import fr.campus.chroniclesofthemists.exception.IllegalAnswerException;
 
 import java.util.Scanner;
 
 
 public class Menu {
-    private Character character;
+    Scanner input = new Scanner(System.in);
 
     /**
      * Display all the messages
@@ -20,15 +20,15 @@ public class Menu {
         System.out.println(message);
     }
 
-
     /**
      * Choose the character and display all the information about it
      * The player can name his character and update the info about his character
      * The player can close the game at any time by typing "exit"
      * return object Character
      */
-    public Character createCharacter() {
-        Scanner input = new Scanner(System.in);
+    protected Character createCharacter() throws IllegalAnswerException {
+
+        //Scanner input = new Scanner(System.in);
         String characterChoice;
 
         /**
@@ -40,27 +40,24 @@ public class Menu {
 
             characterChoice = exitGame(input);
 
-            /*if(!characterChoice.equalsIgnoreCase("Witcher") && !characterChoice.equalsIgnoreCase("Warrior")) {
-                message("Error! Please choose a valid character (Warrior or Witcher)");
-                characterChoice = exitGame(input);
-            }*/
-
-            characterChoice = validateCharacterType(characterChoice);
+            //characterChoice = validateCharacterType(characterChoice);
+            characterChoice = validateAnswer(characterChoice);
 
             message("You choose to be a " + characterChoice + ". Are you sure? (Yes / No)");
 
             String changeType = exitGame(input);
+            changeType = validateAnswer(changeType);
 
             if (changeType.equalsIgnoreCase("No")) {
                 message("Change the type of your character (type Warrior or Witcher):");
-                characterChoice = validateCharacterType(characterChoice);
+                //characterChoice = validateCharacterType(characterChoice);
+                characterChoice = validateAnswer(characterChoice);
             }
 
             message("Enter a name for your character: ");
             String name = exitGame(input);
 
             message("Name: " + name);
-
             message("Do you want to change your name's character? (Yes / No)");
 
             String changeName = exitGame(input);
@@ -80,29 +77,36 @@ public class Menu {
             }
 
             if (characterChoice.equalsIgnoreCase("Witcher")) {
-                return this.character = new Witcher(name);
-            } else {
-                return this.character = new Warrior(name);
-            }
+                Character character = new Witcher(name);
+                message(character.toString());
+                message("Welcome young " + character.getName() + "!");
+                return character;
+                //message("You have a long road ahead of you, you'll have to go through " + board.size() + " cells. Be careful, enemies are waiting for you!");
 
+            } else {
+                Character character = new Warrior(name);
+                message(character.toString());
+                message("Welcome young " + character.getName() + "!");
+                return character ;
+            }
         }
     }
 
-    /**
-     * Validate the type of character enter by the player
-     *
-     * @param characterChoice = first input of the player
-     * @return the characterChoice modified and correct
-     */
-    public String validateCharacterType(String characterChoice) {
+    public Character getNewCharacter() throws IllegalAnswerException {
+        return createCharacter();
+    }
+
+
+    protected String validateAnswer(String answer) throws IllegalAnswerException {
         Scanner input = new Scanner(System.in);
-        while (!characterChoice.equalsIgnoreCase("Warrior") && !characterChoice.equalsIgnoreCase("Witcher")) try {
-            throw new IllegalArgumentException("Error! Please choose a type a valid answer");
-        } catch (IllegalArgumentException e) {
-            message("Error! Please choose a valid character (Warrior or Witcher)");
-            characterChoice = exitGame(input);
-        }
-        return characterChoice;
+        while (!answer.equalsIgnoreCase("Warrior") && !answer.equalsIgnoreCase("Witcher"))
+            try {
+                throw new IllegalAnswerException();
+            } catch (IllegalAnswerException error) {
+                error.IllegalAnswerMessage();
+                answer = exitGame(input);
+            }
+        return answer;
     }
 
     /**
@@ -110,52 +114,39 @@ public class Menu {
      *
      * @param input = text that the player typed
      */
-    protected static String exitGame(Scanner input) {
+    public static String exitGame(Scanner input) {
         String text = input.nextLine();
         if (text.equalsIgnoreCase("exit")) {
             message("Exit the game");
             System.exit(0);
-        }
-        ;
+        };
         return text;
     }
 
-    /**
-     * Start the game
-     * While the player is not on the square n°64, the game continue
-     * if the player lands on a square higher than 64, an error is thrown
-     */
-    public Dice startGame() throws CharacterOutOfBoundException {
+    public static void restartGame() {
         Scanner input = new Scanner(System.in);
-
-
-        message("Welcome young " + character.getName() + "!");
-        message(character.toString());
-        int characterPosition = 1;
-
-
-        while (characterPosition != 64) {
-            if (characterPosition > 64)
-                throw new CharacterOutOfBoundException();
-            else {
-                Dice dice = new Dice();
-                characterPosition += dice.getRollDice();
-                message("Move " + dice.getRollDice());
-                message("You are on the square " + characterPosition);
-            }
-        }
-
-        message("Winner");
-
         message("Do you want to restart (type \"restart\") or close (type \"exit\") the game?");
 
         String restartGame = exitGame(input);
         if (restartGame.equalsIgnoreCase("Restart")) {
             message("Restarting the game");
-            this.createCharacter();
+            Game game = new Game();
+            game.playTurn();
         } else {
             System.exit(0);
         }
-        return new Dice();
     }
+
+    public void getEquipment() {
+        message("Do you want to take this equipment? (type Yes or No)");
+        String takeEquipment = exitGame(input);
+        if (takeEquipment.equalsIgnoreCase("Yes")) {
+            message("New equipment taken");
+        } else {
+            message("You chose to not take this equipment. Are you sure? (Yes / No)");
+
+        }
+    }
+
+
 }

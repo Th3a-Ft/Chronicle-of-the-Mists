@@ -1,4 +1,10 @@
 package fr.campus.chroniclesofthemists.exception;
 
-public class IllegalAnswerException {
+import static fr.campus.chroniclesofthemists.game.Menu.message;
+
+public class IllegalAnswerException extends Exception {
+
+    public void IllegalAnswerMessage() {
+        message("Error! Please type a valid answer");
+    }
 }

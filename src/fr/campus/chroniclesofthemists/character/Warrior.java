@@ -14,5 +14,4 @@ public class Warrior extends Character{
         this.attack=8;
         return attack;
     }
-
 }
