@@ -8,6 +8,7 @@ import fr.campus.chroniclesofthemists.exception.CharacterOutOfBoundException;
 import fr.campus.chroniclesofthemists.exception.IllegalAnswerException;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 /**
@@ -18,12 +19,20 @@ public class Game {
     private Character character;
     private int playerPosition = 1;
     private ArrayList<Cell> board;
+    private String gameState;
 
+    /**
+     * Create a new object Menu and call the createBoard() from the Menu class
+     */
     public Game() {
         this.menu = new Menu();
         this.createBoard();
     }
 
+    /**
+     * Allow the player to move across the board
+     * Create a new dice with a new value while the player position is under the size of the board
+     */
     public void playTurn() {
         try {
             character = menu.getNewCharacter();
@@ -32,72 +41,43 @@ public class Game {
         }
 
         try {
-            //startGame();
-            while (playerPosition != board.size() + 1) {
+            while (playerPosition != board.size()) {
                 if (playerPosition >= board.size()) {
+                    gameState = "done";
                     throw new CharacterOutOfBoundException();
                 } else {
-                    Dice dice = new Dice();
-                    playerPosition += dice.getRollDice();
-                    message("Move " + dice.getRollDice());
-                    message("You are on the cell " + playerPosition);
+                    for (int i = 0; i < board.size(); i++) {
+                        gameState = "in progress";
+                        Dice dice = new Dice();
+                        playerPosition += dice.getRollDice();
+                        message("You are in the cell n°" + i);
+                        message("Move " + dice.getRollDice());
+                        Cell cell = board.get(i);
+                        message(cell.toString());
+                    }
                 }
             }
-        } catch (CharacterOutOfBoundException error) {
+        } catch (
+                CharacterOutOfBoundException error) {
             error.GameOver();
         }
     }
 
     /**
-     * Start the game
-     * While the player is not on the square n°64, the game continue
-     * if the player lands on a square higher than 64, an error is thrown
+     * Create the board thanks to an ArrayList of Cell objects
      */
+    private void createBoard() {
+        board = new ArrayList<>();
 
-//    private void startGame() {
-//
-//        message("Welcome young " + character.getName() + "!");
-//        message("You have a long road ahead of you, you'll have to go through " + board.size() + " cells. Be careful, enemies are waiting for you!");
-//        message(character.toString());
-
-//        while (playerPosition != board.size() + 1) {
-//            if (playerPosition >= board.size()) {
-//                throw new CharacterOutOfBoundException();
-//            } else {
-//                Dice dice = new Dice();
-//                playerPosition += dice.getRollDice();
-//                message("Move " + dice.getRollDice());
-//                message("You are on the cell " + playerPosition);
-//            }
-//        }
-    //}
-
-    private ArrayList<Cell> createBoard() {
         EmptyCell emptyCell = new EmptyCell();
         EnemyCell enemyCell = new EnemyCell();
         WeaponCell weaponCell = new WeaponCell();
         PotionCell potionCell = new PotionCell();
-        board = new ArrayList<Cell>();
+
         board.add(emptyCell);
         board.add(enemyCell);
         board.add(weaponCell);
         board.add(potionCell);
-
-        return board;
     }
-
-    //Player attaque en premier si HP ennemi > attackPlayer alors
-    //ennemi attaque puis fuis
-    //si attackeEnemy < HPPlayer alors HPPlayer = HP - attackEnnemy
-    //sinon Game Over
-//    private void fight() {
-//        message("A enemy is on this case, you have to defeat him!");
-//        //enemy.setHP()=character.setAttack()-enemy.setHP()
-//        if (character.setHP() <= 0){
-//            message("You are dead, see you next time young " + character.getName());
-//            System.exit(0);
-//        }
-//    }
-
 
 }

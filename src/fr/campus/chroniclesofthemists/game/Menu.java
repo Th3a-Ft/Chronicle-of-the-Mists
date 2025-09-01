@@ -13,7 +13,6 @@ public class Menu {
 
     /**
      * Display all the messages
-     *
      * @param message : message to display
      */
     public static void message(String message) {
@@ -27,8 +26,6 @@ public class Menu {
      * return object Character
      */
     protected Character createCharacter() throws IllegalAnswerException {
-
-        //Scanner input = new Scanner(System.in);
         String characterChoice;
 
         /**
@@ -40,7 +37,6 @@ public class Menu {
 
             characterChoice = exitGame(input);
 
-            //characterChoice = validateCharacterType(characterChoice);
             characterChoice = validateAnswer(characterChoice);
 
             message("You choose to be a " + characterChoice + ". Are you sure? (Yes / No)");
@@ -50,7 +46,6 @@ public class Menu {
 
             if (changeType.equalsIgnoreCase("No")) {
                 message("Change the type of your character (type Warrior or Witcher):");
-                //characterChoice = validateCharacterType(characterChoice);
                 characterChoice = validateAnswer(characterChoice);
             }
 
@@ -81,7 +76,6 @@ public class Menu {
                 message(character.toString());
                 message("Welcome young " + character.getName() + "!");
                 return character;
-                //message("You have a long road ahead of you, you'll have to go through " + board.size() + " cells. Be careful, enemies are waiting for you!");
 
             } else {
                 Character character = new Warrior(name);
@@ -99,7 +93,7 @@ public class Menu {
 
     protected String validateAnswer(String answer) throws IllegalAnswerException {
         Scanner input = new Scanner(System.in);
-        while (!answer.equalsIgnoreCase("Warrior") && !answer.equalsIgnoreCase("Witcher"))
+        while (!answer.equalsIgnoreCase("Warrior") && !answer.equalsIgnoreCase("Witcher")&& !answer.equalsIgnoreCase("Yes")&& !answer.equalsIgnoreCase("No"))
             try {
                 throw new IllegalAnswerException();
             } catch (IllegalAnswerException error) {
@@ -137,16 +131,16 @@ public class Menu {
         }
     }
 
-    public void getEquipment() {
-        message("Do you want to take this equipment? (type Yes or No)");
-        String takeEquipment = exitGame(input);
-        if (takeEquipment.equalsIgnoreCase("Yes")) {
-            message("New equipment taken");
-        } else {
-            message("You chose to not take this equipment. Are you sure? (Yes / No)");
-
-        }
-    }
+//    public void getEquipment() {
+//        message("Do you want to take this equipment? (type Yes or No)");
+//        String takeEquipment = exitGame(input);
+//        if (takeEquipment.equalsIgnoreCase("Yes")) {
+//            message("New equipment taken");
+//        } else {
+//            message("You chose to not take this equipment. Are you sure? (Yes / No)");
+//
+//        }
+//    }
 
 
 }
