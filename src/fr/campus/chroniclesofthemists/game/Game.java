@@ -8,7 +8,6 @@ import fr.campus.chroniclesofthemists.exception.CharacterOutOfBoundException;
 import fr.campus.chroniclesofthemists.exception.IllegalAnswerException;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 
 /**

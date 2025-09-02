@@ -30,12 +30,17 @@ abstract public class Character {
      * @return (int) health point for a type of character
      */
     abstract public int setHP();
+
     /**
      * set the Attack point for each type of Character in the classes
      * @return (int) health point for a type of character
      */
     abstract public int setAttack();
 
+    /**
+     *
+     * @return (strings) all the characteristics of the character according his type (warrior or witcher)
+     */
     @Override
     public String toString() {
         return "Character:" + getName() + " HP:" + setHP() + " Attack: "+ setAttack();

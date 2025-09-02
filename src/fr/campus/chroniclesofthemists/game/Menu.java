@@ -7,7 +7,6 @@ import fr.campus.chroniclesofthemists.exception.IllegalAnswerException;
 
 import java.util.Scanner;
 
-
 public class Menu {
     Scanner input = new Scanner(System.in);
 
@@ -90,8 +89,13 @@ public class Menu {
         return createCharacter();
     }
 
-
-    protected String validateAnswer(String answer) throws IllegalAnswerException {
+    /**
+     * When a non-validate text is type by the player an Error is thrown
+     * @param answer (string) : refers to the text entered by the player
+     * @return (string) : the text entered by the player if correct
+     * @throws IllegalAnswerException
+     */
+    private String validateAnswer(String answer) throws IllegalAnswerException {
         Scanner input = new Scanner(System.in);
         while (!answer.equalsIgnoreCase("Warrior") && !answer.equalsIgnoreCase("Witcher")&& !answer.equalsIgnoreCase("Yes")&& !answer.equalsIgnoreCase("No"))
             try {
@@ -117,11 +121,18 @@ public class Menu {
         return text;
     }
 
+    /**
+     * At the end of the game, the player can restart or exit the game
+     */
     public static void restartGame() {
         Scanner input = new Scanner(System.in);
         message("Do you want to restart (type \"restart\") or close (type \"exit\") the game?");
 
         String restartGame = exitGame(input);
+        while (!restartGame.equalsIgnoreCase("restart") && !restartGame.equalsIgnoreCase("exit")) {
+            message("Error! Please type a valid answer (restart / exit).");
+            restartGame = exitGame(input);
+        }
         if (restartGame.equalsIgnoreCase("Restart")) {
             message("Restarting the game");
             Game game = new Game();
@@ -129,6 +140,10 @@ public class Menu {
         } else {
             System.exit(0);
         }
+    }
+
+    private Character getHeroes(){
+
     }
 
 //    public void getEquipment() {
