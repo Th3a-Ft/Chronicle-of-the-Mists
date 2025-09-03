@@ -7,11 +7,12 @@ import fr.campus.chroniclesofthemists.equipment.OffensiveEquipment;
  * class Character from whom all the type of character are going to herit
  */
 abstract public class Character {
-    protected String name;
+    private String name;
+    protected String type;
     protected int hp;
     protected int attack;
-    protected OffensiveEquipment offensiveEquipment;
-    protected DefensiveEquipment defensiveEquipment;
+    protected String offensiveEquipment;
+    protected String defensiveEquipment;
 
     /**
      * Constructor of class Character
@@ -21,21 +22,50 @@ abstract public class Character {
         this.name=name;
     }
 
+//    public String setName() {
+//        return name;
+//    }
+
+    public String setType() {
+        return type;
+    }
     public String getName() {
         return name;
     }
+
+    //abstract public String setType(String type);
+    public String getType(){
+        return type;
+    };
+
+   // abstract  public String setOffensiveEquipment();
+    public String getOffensiveEquipment(){
+        return offensiveEquipment;
+    };
+
+    //abstract  public String setDefensiveEquipment();
+    public String getDefensiveEquipment(){
+        return defensiveEquipment;
+    };
+
 
     /**
      * set the HP for each type of Character in the daughters
      * @return (int) health point for a type of character
      */
-    abstract public int setHP();
+    //abstract public int setHP();
+    public int getHP(){
+        return hp;
+    };
 
     /**
      * set the Attack point for each type of Character in the classes
      * @return (int) health point for a type of character
      */
-    abstract public int setAttack();
+    //abstract public int setAttack();
+    public int getAttack(){
+        return attack;
+    };
 
     /**
      *
@@ -43,13 +73,8 @@ abstract public class Character {
      */
     @Override
     public String toString() {
-        return "Character:" + getName() + " HP:" + setHP() + " Attack: "+ setAttack();
+        return "Character:" + getName() + " HP:" + getHP() + " Attack: "+ getAttack();
     }
 
-    private void battle(){
 
-    }
-
-    private void applyEffect(){
-    }
 }

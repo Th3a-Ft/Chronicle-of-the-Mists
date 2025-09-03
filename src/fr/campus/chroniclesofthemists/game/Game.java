@@ -4,6 +4,7 @@ import static fr.campus.chroniclesofthemists.game.Menu.message;
 
 import fr.campus.chroniclesofthemists.cell.*;
 import fr.campus.chroniclesofthemists.character.Character;
+import fr.campus.chroniclesofthemists.db.DBConnexion;
 import fr.campus.chroniclesofthemists.exception.CharacterOutOfBoundException;
 import fr.campus.chroniclesofthemists.exception.IllegalAnswerException;
 
@@ -23,16 +24,17 @@ public class Game {
     /**
      * Create a new object Menu and call the createBoard() from the Menu class
      */
-    public Game() {
+    public Game() throws IllegalAnswerException {
         this.menu = new Menu();
         this.createBoard();
+
     }
 
     /**
      * Allow the player to move across the board
      * Create a new dice with a new value while the player position is under the size of the board
      */
-    public void playTurn() {
+    public void playTurn() throws IllegalAnswerException {
         try {
             character = menu.getNewCharacter();
         } catch (IllegalAnswerException error) {
@@ -78,5 +80,6 @@ public class Game {
         board.add(weaponCell);
         board.add(potionCell);
     }
+
 
 }

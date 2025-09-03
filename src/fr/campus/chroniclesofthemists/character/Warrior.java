@@ -5,6 +5,19 @@ public class Warrior extends Character{
         super(name);
     }
 
+//    public String setOffensiveEquipment(){
+//        return "offensive Warrior";
+//    };
+//
+//    public String setDefensiveEquipment(){
+//        return "defensive Warrior";
+//    };
+//
+//    public String setType(String type) {
+//        type = "Warrior";
+//        return type;
+//    }
+
     public int setHP() {
         this.hp = 10;
         return hp;

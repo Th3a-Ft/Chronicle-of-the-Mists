@@ -12,6 +12,7 @@ public class Menu {
 
     /**
      * Display all the messages
+     *
      * @param message : message to display
      */
     public static void message(String message) {
@@ -26,6 +27,7 @@ public class Menu {
      */
     protected Character createCharacter() throws IllegalAnswerException {
         String characterChoice;
+        Character character;
 
         /**
          *While input is different of "exit" the game continue
@@ -71,17 +73,18 @@ public class Menu {
             }
 
             if (characterChoice.equalsIgnoreCase("Witcher")) {
-                Character character = new Witcher(name);
+                character = new Witcher(name);
                 message(character.toString());
                 message("Welcome young " + character.getName() + "!");
                 return character;
 
             } else {
-                Character character = new Warrior(name);
+                character = new Warrior(name);
                 message(character.toString());
                 message("Welcome young " + character.getName() + "!");
-                return character ;
+                return character;
             }
+
         }
     }
 
@@ -89,15 +92,16 @@ public class Menu {
         return createCharacter();
     }
 
+
     /**
      * When a non-validate text is type by the player an Error is thrown
+     *
      * @param answer (string) : refers to the text entered by the player
      * @return (string) : the text entered by the player if correct
-     * @throws IllegalAnswerException
      */
-    private String validateAnswer(String answer) throws IllegalAnswerException {
+    private String validateAnswer(String answer) {
         Scanner input = new Scanner(System.in);
-        while (!answer.equalsIgnoreCase("Warrior") && !answer.equalsIgnoreCase("Witcher")&& !answer.equalsIgnoreCase("Yes")&& !answer.equalsIgnoreCase("No"))
+        while (!answer.equalsIgnoreCase("Warrior") && !answer.equalsIgnoreCase("Witcher") && !answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No"))
             try {
                 throw new IllegalAnswerException();
             } catch (IllegalAnswerException error) {
@@ -117,14 +121,15 @@ public class Menu {
         if (text.equalsIgnoreCase("exit")) {
             message("Exit the game");
             System.exit(0);
-        };
+        }
+        ;
         return text;
     }
 
     /**
      * At the end of the game, the player can restart or exit the game
      */
-    public static void restartGame() {
+    public static void restartGame() throws IllegalAnswerException {
         Scanner input = new Scanner(System.in);
         message("Do you want to restart (type \"restart\") or close (type \"exit\") the game?");
 
@@ -142,9 +147,6 @@ public class Menu {
         }
     }
 
-    private Character getHeroes(){
-
-    }
 
 //    public void getEquipment() {
 //        message("Do you want to take this equipment? (type Yes or No)");
