@@ -9,7 +9,6 @@ public class IllegalAnswerException extends Exception {
 
     public IllegalAnswerException(String inputToCheck) {
         super("This text: " + inputToCheck + " is not valid! Please try again.");
-       // message("This text: " + inputToCheck + " is not valid! Please try again.");
     }
 
 

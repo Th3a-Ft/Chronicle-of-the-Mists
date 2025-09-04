@@ -3,8 +3,11 @@ package fr.campus.chroniclesofthemists.game;
 import fr.campus.chroniclesofthemists.character.Character;
 import fr.campus.chroniclesofthemists.character.Warrior;
 import fr.campus.chroniclesofthemists.character.Witcher;
+import fr.campus.chroniclesofthemists.db.DBConnexion;
+import fr.campus.chroniclesofthemists.db.DBHeroes;
 import fr.campus.chroniclesofthemists.exception.IllegalAnswerException;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
@@ -25,7 +28,7 @@ public class Menu {
      * The player can close the game at any time by typing "exit"
      * return object Character
      */
-    protected Character createCharacter() throws  IllegalAnswerException {
+    protected Character createCharacter() throws IllegalAnswerException {
         String characterChoice;
         Character character;
 
@@ -43,8 +46,8 @@ public class Menu {
             message("You choose to be a " + characterChoice + ". Are you sure? (Yes / No)");
 
             String changeType = exitGame(input);
-            changeType=validateAnswer(changeType);
             changeType = validateAnswer(changeType);
+            //changeType = validateAnswer(changeType);
 
             if (changeType.equalsIgnoreCase("No")) {
                 message("Change the type of your character (type Warrior or Witcher):");
@@ -65,12 +68,12 @@ public class Menu {
                 name = exitGame(input);
             }
 
-            message("Do you want to start the game? (Yes / No, exit)");
+            message("Do you want to save your character? (Yes / No, exit)");
 
-            String startGame = exitGame(input);
-            startGame = validateAnswer(startGame);
+            String saveCharacter = exitGame(input);
+            saveCharacter = validateAnswer(saveCharacter);
 
-            if (startGame.equalsIgnoreCase("Yes")) {
+            if (saveCharacter.equalsIgnoreCase("Yes")) {
                 message("Start the game");
             } else {
                 System.exit(0);
@@ -80,20 +83,20 @@ public class Menu {
                 character = new Witcher(name);
                 message("type : " + character.setType());
                 message(character.toString());
-                message("Welcome young " + character.getName() + "!");
+                message("Your character " + character.getName() + " the " + character.getType() + " has been saved.");
                 return character;
 
             } else {
                 character = new Warrior(name);
                 message(character.toString());
-                message("Welcome young " + character.getName() + "!");
+                message("Your character " + character.getName() + " the " + character.getType() + " has been saved.");
                 return character;
             }
 
         }
     }
 
-    public Character getNewCharacter() throws  IllegalAnswerException {
+    public Character getNewCharacter() throws IllegalAnswerException {
         return createCharacter();
     }
 
@@ -104,11 +107,13 @@ public class Menu {
      * @param answer (string) : refers to the text entered by the player
      * @return (string) : the text entered by the player if correct
      */
-    private String validateAnswer(String answer) throws IllegalAnswerException {
+    private String validateAnswer(String answer) {
         Scanner input = new Scanner(System.in);
         while (!answer.equalsIgnoreCase("Warrior") && !answer.equalsIgnoreCase("Witcher") && !answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No"))
             try {
-                throw new IllegalAnswerException(answer);
+                if (!answer.equalsIgnoreCase("Warrior") && !answer.equalsIgnoreCase("Witcher") && !answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No")) {
+                    throw new IllegalAnswerException(answer);
+                }
             } catch (IllegalAnswerException error) {
                 //error.IllegalAnswerException();
                 message(error.getMessage());
@@ -135,7 +140,7 @@ public class Menu {
     /**
      * At the end of the game, the player can restart or exit the game
      */
-    public static void restartGame() throws IllegalAnswerException{
+    public static void restartGame() throws IllegalAnswerException {
         Scanner input = new Scanner(System.in);
         message("Do you want to restart (type \"restart\") or close (type \"exit\") the game?");
 
@@ -153,17 +158,67 @@ public class Menu {
         }
     }
 
+    public void updateCharacter() {
+        Scanner input = new Scanner(System.in);
+        DBHeroes heroes = new DBHeroes();
 
-//    public void getEquipment() {
-//        message("Do you want to take this equipment? (type Yes or No)");
-//        String takeEquipment = exitGame(input);
-//        if (takeEquipment.equalsIgnoreCase("Yes")) {
-//            message("New equipment taken");
-//        } else {
-//            message("You chose to not take this equipment. Are you sure? (Yes / No)");
+        int id=input.nextInt();
+
+//        message("Which character would you like to update? (type his id number)");
+//        int id = input.nextInt();
 //
+//        input.nextLine();
+//
+//        message("What do you want to update? (type the number)");
+//        message("1 - Update type");
+//        message("2 - Update name");
+//        message("3 - Update life points");
+//        message("4 - Update strength");
+//        message("5 - Update offensive equipment");
+//        message("6 - Update defensive equipment");
+
+//        switch (input.nextInt()) {
+//            case 1:
+//                message("Update the type of your character (type Warrior or Witcher):");
+//                characterType = input.nextLine();
+//                message("You are now a " + characterType);
+//                break;
+//            case 2:
+//                message("Update the name of your character:");
+//                name = input.nextLine();
+//                message("Your name is now " + name);
+//                break;
+//            case 3:
+//                message("Update your life points:");
+//                lifePoints = input.nextInt();
+//                message("Your life points are now " + lifePoints);
+//                break;
+//            case 4:
+//                message("Update your strength:");
+//                strength = input.nextInt();
+//                message("Your life points are now " + strength);
+//                break;
+//            case 5:
+//                message("Update your offensive equipment:");
+//                offensiveEquipment = input.nextLine();
+//                message("Your life points are now " + offensiveEquipment);
+//                break;
+//            case 6:
+//                message("Update your defensive equipment:");
+//                defensiveEquipment = input.nextLine();
+//                message("Your life points are now " + defensiveEquipment);
+//                break;
+//            default:
+//                characterType="typeDefault";
+//                name="nameDefault";
+//                lifePoints=0;
+//                strength=0;
+//                offensiveEquipment="offensiveEquipment";
+//                defensiveEquipment="defensiveEquipment";
 //        }
-//    }
+
+        heroes.editHeroes();
+    }
 
 
 }

@@ -36,17 +36,14 @@ public class Game {
      * Create a new dice with a new value while the player position is under the size of the board
      */
     public void playTurn() throws IllegalAnswerException {
-//        try {
-            character = menu.getNewCharacter();
-//        } catch (IllegalAnswerException error) {
-//            error.getMessage();
-//        }
+
+        character = menu.getNewCharacter();
 
         try {
             while (playerPosition != board.size()) {
-                if (playerPosition >= board.size()) {
+                if (playerPosition > board.size()) {
                     gameState = "done";
-                    throw new CharacterOutOfBoundException();
+                    throw new CharacterOutOfBoundException(playerPosition);
                 } else {
                     for (int i = 0; i < board.size(); i++) {
                         gameState = "in progress";
@@ -59,9 +56,8 @@ public class Game {
                     }
                 }
             }
-        } catch (
-                CharacterOutOfBoundException error) {
-            error.GameOver();
+        } catch (CharacterOutOfBoundException error) {
+            error.getMessage();
             restartGame();
         }
     }

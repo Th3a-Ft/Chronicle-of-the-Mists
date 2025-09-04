@@ -7,6 +7,7 @@ import fr.campus.chroniclesofthemists.equipment.OffensiveEquipment;
  * class Character from whom all the type of character are going to herit
  */
 abstract public class Character {
+
     private String name;
     protected String type;
     protected int hp;
