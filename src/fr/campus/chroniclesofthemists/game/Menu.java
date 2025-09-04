@@ -25,7 +25,7 @@ public class Menu {
      * The player can close the game at any time by typing "exit"
      * return object Character
      */
-    protected Character createCharacter() throws IllegalAnswerException {
+    protected Character createCharacter() throws  IllegalAnswerException {
         String characterChoice;
         Character character;
 
@@ -43,6 +43,7 @@ public class Menu {
             message("You choose to be a " + characterChoice + ". Are you sure? (Yes / No)");
 
             String changeType = exitGame(input);
+            changeType=validateAnswer(changeType);
             changeType = validateAnswer(changeType);
 
             if (changeType.equalsIgnoreCase("No")) {
@@ -57,6 +58,7 @@ public class Menu {
             message("Do you want to change your name's character? (Yes / No)");
 
             String changeName = exitGame(input);
+            changeName = validateAnswer(changeName);
 
             if (changeName.equalsIgnoreCase("Yes")) {
                 message("Change the name of your character");
@@ -66,6 +68,8 @@ public class Menu {
             message("Do you want to start the game? (Yes / No, exit)");
 
             String startGame = exitGame(input);
+            startGame = validateAnswer(startGame);
+
             if (startGame.equalsIgnoreCase("Yes")) {
                 message("Start the game");
             } else {
@@ -74,6 +78,7 @@ public class Menu {
 
             if (characterChoice.equalsIgnoreCase("Witcher")) {
                 character = new Witcher(name);
+                message("type : " + character.setType());
                 message(character.toString());
                 message("Welcome young " + character.getName() + "!");
                 return character;
@@ -88,7 +93,7 @@ public class Menu {
         }
     }
 
-    public Character getNewCharacter() throws IllegalAnswerException {
+    public Character getNewCharacter() throws  IllegalAnswerException {
         return createCharacter();
     }
 
@@ -99,13 +104,14 @@ public class Menu {
      * @param answer (string) : refers to the text entered by the player
      * @return (string) : the text entered by the player if correct
      */
-    private String validateAnswer(String answer) {
+    private String validateAnswer(String answer) throws IllegalAnswerException {
         Scanner input = new Scanner(System.in);
         while (!answer.equalsIgnoreCase("Warrior") && !answer.equalsIgnoreCase("Witcher") && !answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No"))
             try {
-                throw new IllegalAnswerException();
+                throw new IllegalAnswerException(answer);
             } catch (IllegalAnswerException error) {
-                error.IllegalAnswerMessage();
+                //error.IllegalAnswerException();
+                message(error.getMessage());
                 answer = exitGame(input);
             }
         return answer;
@@ -129,7 +135,7 @@ public class Menu {
     /**
      * At the end of the game, the player can restart or exit the game
      */
-    public static void restartGame() throws IllegalAnswerException {
+    public static void restartGame() throws IllegalAnswerException{
         Scanner input = new Scanner(System.in);
         message("Do you want to restart (type \"restart\") or close (type \"exit\") the game?");
 

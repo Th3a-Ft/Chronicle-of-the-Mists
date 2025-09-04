@@ -1,6 +1,7 @@
 package fr.campus.chroniclesofthemists.game;
 
 import static fr.campus.chroniclesofthemists.game.Menu.message;
+import static fr.campus.chroniclesofthemists.game.Menu.restartGame;
 
 import fr.campus.chroniclesofthemists.cell.*;
 import fr.campus.chroniclesofthemists.character.Character;
@@ -35,11 +36,11 @@ public class Game {
      * Create a new dice with a new value while the player position is under the size of the board
      */
     public void playTurn() throws IllegalAnswerException {
-        try {
+//        try {
             character = menu.getNewCharacter();
-        } catch (IllegalAnswerException error) {
-            error.IllegalAnswerMessage();
-        }
+//        } catch (IllegalAnswerException error) {
+//            error.getMessage();
+//        }
 
         try {
             while (playerPosition != board.size()) {
@@ -61,6 +62,7 @@ public class Game {
         } catch (
                 CharacterOutOfBoundException error) {
             error.GameOver();
+            restartGame();
         }
     }
 

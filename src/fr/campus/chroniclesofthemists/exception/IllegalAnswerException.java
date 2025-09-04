@@ -7,7 +7,10 @@ import static fr.campus.chroniclesofthemists.game.Menu.message;
  */
 public class IllegalAnswerException extends Exception {
 
-    public void IllegalAnswerMessage() {
-        message("Error! Please type a valid answer.");
+    public IllegalAnswerException(String inputToCheck) {
+        super("This text: " + inputToCheck + " is not valid! Please try again.");
+       // message("This text: " + inputToCheck + " is not valid! Please try again.");
     }
+
+
 }

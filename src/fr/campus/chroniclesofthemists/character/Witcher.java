@@ -5,23 +5,19 @@ public class Witcher extends Character {
         super(name);
     }
 
-//    @Override
-//    public String setName() {
-//        return super.setName();
-//    }
 
-//    public String setOffensiveEquipment() {
-//        return "offensive Witcher";
-//    };
-//
-//    public String setDefensiveEquipment() {
-//        return "defensive Witcher";
-//    };
-//
-//    public String setType(String type) {
-//        type = "Witcher";
-//        return type;
-//    }
+    public String getOffensiveEquipment() {
+        return "offensive Witcher";
+    };
+
+    public String getDefensiveEquipment() {
+        return "defensive Witcher";
+    };
+
+    public String setType() {
+        type = "Witcher";
+        return type;
+    }
 
     public int getHP() {
         this.hp = 6;

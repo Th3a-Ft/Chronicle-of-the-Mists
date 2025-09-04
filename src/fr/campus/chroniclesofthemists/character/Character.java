@@ -29,6 +29,7 @@ abstract public class Character {
     public String setType() {
         return type;
     }
+
     public String getName() {
         return name;
     }
