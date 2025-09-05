@@ -3,8 +3,9 @@ package fr.campus.chroniclesofthemists.cell;
 public class EmptyCell extends Cell {
 
     public EmptyCell() {
-        super();
+        super("empty");
     }
+
 
     @Override
     protected String effect() {

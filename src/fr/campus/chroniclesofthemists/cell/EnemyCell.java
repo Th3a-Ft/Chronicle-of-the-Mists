@@ -1,14 +1,38 @@
 package fr.campus.chroniclesofthemists.cell;
 
+import fr.campus.chroniclesofthemists.enemy.Dragon;
+import fr.campus.chroniclesofthemists.enemy.Goblin;
+import fr.campus.chroniclesofthemists.enemy.Wizard;
+
 public class EnemyCell extends Cell {
 
-    public EnemyCell(){
-        super();
+    public EnemyCell() {
+        super("enemy");
     }
+
+    protected String TypeOfEnemy() {
+        String enemyType;
+        int type = (int) (Math.random() * 3) + 1;
+        if (type == 1) {
+            Dragon dragon = new Dragon();
+            enemyType = dragon.toString();
+            return enemyType;
+        } else if (type == 2) {
+            Goblin goblin = new Goblin();
+            enemyType = goblin.toString();
+            return enemyType;
+        } else if (type == 3) {
+            Wizard wizard = new Wizard();
+            enemyType = wizard.toString();
+            return enemyType;
+        }
+        return null;
+    }
+
 
     @Override
     protected String effect() {
-        return "Oh no! An enemy ! You have to beat him!";
+        return "Oh no! " + this.TypeOfEnemy() + "! You have to beat him!";
     }
 
     @Override

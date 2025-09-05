@@ -5,18 +5,19 @@ package fr.campus.chroniclesofthemists.cell;
  */
 
 abstract public class Cell {
-    protected int cellNumber;
+    private String type;
 
     /**
      * Constructor of the class Cell
      *
      */
-    public Cell(){
-
+    public Cell(String type) {
+        this.type=type;
     }
 
     /**
      * Display the effect of the cell to the player
+     *
      * @return (string) the effect of the cell
      */
     abstract protected String effect();
@@ -28,19 +29,20 @@ abstract public class Cell {
 
     /**
      * get the effect of the cell
+     *
      * @return (string)
      */
-    protected String getEffect(){
+    protected String getEffect() {
         return effect();
     }
 
     /**
      * Function to return in which the player is
+     *
      * @return (string) with the number of the cell and the effect
      */
     @Override
-    public String toString(){
-
+    public String toString() {
         return getEffect();
     }
 

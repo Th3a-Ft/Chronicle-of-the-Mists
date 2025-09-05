@@ -13,9 +13,7 @@ import static fr.campus.chroniclesofthemists.game.Menu.message;
 
 public class DBHeroes extends DBConnexion {
     public DBHeroes() {
-    }
-
-    ;
+    };
 
     public ArrayList<Character> getHeroes() {
         ArrayList<Character> heroes = new ArrayList<>();
@@ -91,8 +89,6 @@ public class DBHeroes extends DBConnexion {
             ResultSet results = statement.executeQuery("SELECT * FROM `character` WHERE id =" + id);
 
             input.nextLine();
-            //String continueUpdate = input.nextLine();
-
 
             if (results.next()) {
                 while (continueUpdating()) {
@@ -182,6 +178,25 @@ public class DBHeroes extends DBConnexion {
         } else {
             return false;
         }
-
     }
+
+    private void changeLifePoints(Character character) {
+        try (Connection connexion = DriverManager.getConnection(getURL(), getUser(), getPassword())) {
+
+            String sql = "UPDATE `character` SET lifePoints=? WHERE id =?";
+            PreparedStatement preparedStatement = connexion.prepareStatement(sql);
+
+            preparedStatement.setInt(1, character.getHP());
+            preparedStatement.executeUpdate();
+
+            message("You have now a life points of " + character.getHP());
+
+            connexion.close();
+
+        } catch (SQLException e) {
+            message(e.getMessage());
+        }
+    }
+
+
 }

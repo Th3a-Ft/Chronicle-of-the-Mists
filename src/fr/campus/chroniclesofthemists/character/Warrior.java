@@ -13,6 +13,7 @@ public class Warrior extends Character{
         return "defensive Warrior";
     };
 
+
     public String setType() {
         type = "Warrior";
         return type;

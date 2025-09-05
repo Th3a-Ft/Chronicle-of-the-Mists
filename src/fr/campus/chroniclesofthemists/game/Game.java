@@ -9,6 +9,7 @@ import fr.campus.chroniclesofthemists.db.DBConnexion;
 import fr.campus.chroniclesofthemists.exception.CharacterOutOfBoundException;
 import fr.campus.chroniclesofthemists.exception.IllegalAnswerException;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -65,18 +66,22 @@ public class Game {
     /**
      * Create the board thanks to an ArrayList of Cell objects
      */
-    private void createBoard() {
+    public ArrayList<Cell> createBoard() {
         board = new ArrayList<>();
+        while (board.size() < 10) {
 
-        EmptyCell emptyCell = new EmptyCell();
-        EnemyCell enemyCell = new EnemyCell();
-        WeaponCell weaponCell = new WeaponCell();
-        PotionCell potionCell = new PotionCell();
+            EmptyCell emptyCell = new EmptyCell();
+            EnemyCell enemyCell = new EnemyCell();
+            WeaponCell weaponCell = new WeaponCell();
+            PotionCell potionCell = new PotionCell();
 
-        board.add(emptyCell);
-        board.add(enemyCell);
-        board.add(weaponCell);
-        board.add(potionCell);
+            board.add(emptyCell);
+            board.add(enemyCell);
+            board.add(weaponCell);
+            board.add(potionCell);
+        }
+        message(board.size() + " cells created");
+        return board;
     }
 
 

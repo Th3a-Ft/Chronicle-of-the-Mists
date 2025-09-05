@@ -1,4 +1,16 @@
 package fr.campus.chroniclesofthemists.equipment;
 
-public class Potion extends DefensiveEquipment{
+abstract class Potion extends DefensiveEquipment{
+
+    abstract String setName();
+
+    @Override
+    protected String setType() {
+        type = "Potion";
+        return super.setType();
+    }
+
+    public String toString(){
+        return setName();
+    }
 }

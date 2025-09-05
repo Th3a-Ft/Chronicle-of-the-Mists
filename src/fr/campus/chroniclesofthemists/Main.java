@@ -1,5 +1,6 @@
 package fr.campus.chroniclesofthemists;
 
+import fr.campus.chroniclesofthemists.db.DBBoard;
 import fr.campus.chroniclesofthemists.db.DBHeroes;
 import fr.campus.chroniclesofthemists.exception.CharacterOutOfBoundException;
 import fr.campus.chroniclesofthemists.exception.IllegalAnswerException;
@@ -9,16 +10,20 @@ import fr.campus.chroniclesofthemists.game.Menu;
 
 public class Main {
     public static void main(String[] args) throws IllegalAnswerException, CharacterOutOfBoundException {
-        DBHeroes connexion = new DBHeroes();
-        Menu menu = new Menu();
-//        connexion.createHeroes(menu.getNewCharacter());
-        connexion.getHeroes();
-        connexion.editHeroes();
+        Game game = new Game();
 
-        //menu.updateCharacter();
+//        DBHeroes connexion = new DBHeroes();
+        DBBoard board = new DBBoard();
+        board.BoardToDB(game);
+//        Menu menu = new Menu();
+//      connexion.createHeroes(menu.getNewCharacter());
+//      connexion.getHeroes();
+//      connexion.editHeroes();
 
-//        Game game = new Game();
-//        game.playTurn();
+//      menu.updateCharacter();
+
+//      game.playTurn();
+        game.createBoard();
 
 
     }

@@ -1,4 +1,13 @@
 package fr.campus.chroniclesofthemists.equipment;
 
-public class Spell extends OffensiveEquipment{
+abstract class Spell extends OffensiveEquipment{
+
+    abstract String setName();
+
+
+    @Override
+    protected String setType() {
+        type = "Spell";
+        return super.setType();
+    }
 }

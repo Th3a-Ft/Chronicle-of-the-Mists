@@ -1,4 +1,5 @@
 package fr.campus.chroniclesofthemists.character;
+
 import fr.campus.chroniclesofthemists.equipment.DefensiveEquipment;
 import fr.campus.chroniclesofthemists.equipment.OffensiveEquipment;
 
@@ -17,10 +18,11 @@ abstract public class Character {
 
     /**
      * Constructor of class Character
+     *
      * @param name
      */
     public Character(String name) {
-        this.name=name;
+        this.name = name;
     }
 
 //    public String setName() {
@@ -36,38 +38,44 @@ abstract public class Character {
     }
 
     //abstract public String setType(String type);
-    public String getType(){
-        return type;
-    };
+    public String getType() {
+         return type;
+    }
 
-   // abstract  public String setOffensiveEquipment();
-    public String getOffensiveEquipment(){
+    ;
+
+    // abstract  public String setOffensiveEquipment();
+    public String getOffensiveEquipment() {
         return offensiveEquipment;
     };
 
     //abstract  public String setDefensiveEquipment();
-    public String getDefensiveEquipment(){
+    public String getDefensiveEquipment() {
         return defensiveEquipment;
     };
 
 
     /**
      * set the HP for each type of Character in the daughters
+     *
      * @return (int) health point for a type of character
      */
     //abstract public int setHP();
-    public int getHP(){
+    public int getHP() {
         return hp;
     };
 
     /**
      * set the Attack point for each type of Character in the classes
+     *
      * @return (int) health point for a type of character
      */
     //abstract public int setAttack();
-    public int getAttack(){
+    public int getAttack() {
         return attack;
-    };
+    }
+
+    ;
 
     /**
      *
@@ -75,7 +83,7 @@ abstract public class Character {
      */
     @Override
     public String toString() {
-        return "Character:" + getName() + " HP:" + getHP() + " Attack: "+ getAttack();
+        return "Character:" + getName() + " HP:" + getHP() + " Attack: " + getAttack();
     }
 
 
