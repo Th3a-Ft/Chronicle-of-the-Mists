@@ -91,82 +91,97 @@ public class DBHeroes extends DBConnexion {
             ResultSet results = statement.executeQuery("SELECT * FROM `character` WHERE id =" + id);
 
             input.nextLine();
+            //String continueUpdate = input.nextLine();
+
+
             if (results.next()) {
-                message("What do you want to update? (type the number)");
-                message("1 - Update type");
-                message("2 - Update name");
-                message("3 - Update life points");
-                message("4 - Update strength");
-                message("5 - Update offensive equipment");
-                message("6 - Update defensive equipment");
+                while (continueUpdating()) {
+                    message("What do you want to update? (type the number)");
+                    message("1 - Update type");
+                    message("2 - Update name");
+                    message("3 - Update life points");
+                    message("4 - Update strength");
+                    message("5 - Update offensive equipment");
+                    message("6 - Update defensive equipment");
 
 
-                String characterType = results.getString("type");
-                String name = results.getString("name");
-                int lifePoints = results.getInt("lifePoints");
-                int strength = results.getInt("strength");
-                String offensiveEquipment = results.getString("offensiveEquipment");
-                String defensiveEquipment = results.getString("defensiveEquipment");
+                    String characterType = results.getString("type");
+                    String name = results.getString("name");
+                    int lifePoints = results.getInt("lifePoints");
+                    int strength = results.getInt("strength");
+                    String offensiveEquipment = results.getString("offensiveEquipment");
+                    String defensiveEquipment = results.getString("defensiveEquipment");
 
-                int choice = input.nextInt();
-                input.nextLine();
+                    int choice = input.nextInt();
+                    input.nextLine();
 
-                switch (choice) {
-                    case 1:
-                        message("Update the type of your character (type Warrior or Witcher):");
-                        characterType = input.nextLine();
-                        message("You are now a " + characterType);
-                        break;
-                    case 2:
-                        message("Update the name of your character:");
-                        name = input.nextLine();
-                        message("Your name is now " + name);
-                        break;
-                    case 3:
-                        message("Update your life points:");
-                        lifePoints = input.nextInt();
-                        message("Your life points are now " + lifePoints);
-                        break;
-                    case 4:
-                        message("Update your strength:");
-                        strength = input.nextInt();
-                        message("Your life points are now " + strength);
-
-                        break;
-                    case 5:
-                        message("Update your offensive equipment:");
-                        offensiveEquipment = input.nextLine();
-                        message("Your life points are now " + offensiveEquipment);
-
-                        break;
-                    case 6:
-                        message("Update your defensive equipment:");
-                        defensiveEquipment = input.nextLine();
-                        message("Your life points are now " + defensiveEquipment);
-
-                        break;
-                    default:
-                        message("Character updated successfully ");
+                    switch (choice) {
+                        case 1:
+                            message("Update the type of your character (type Warrior or Witcher):");
+                            characterType = input.nextLine();
+                            message("You are now a " + characterType);
+                            break;
+                        case 2:
+                            message("Update the name of your character:");
+                            name = input.nextLine();
+                            message("Your name is now " + name);
+                            break;
+                        case 3:
+                            message("Update your life points:");
+                            lifePoints = input.nextInt();
+                            message("Your life points are now " + lifePoints);
+                            break;
+                        case 4:
+                            message("Update your strength:");
+                            strength = input.nextInt();
+                            message("Your strength points are now " + strength);
+                            break;
+                        case 5:
+                            message("Update your offensive equipment:");
+                            offensiveEquipment = input.nextLine();
+                            message("Your life points are now " + offensiveEquipment);
+                            break;
+                        case 6:
+                            message("Update your defensive equipment:");
+                            defensiveEquipment = input.nextLine();
+                            message("Your life points are now " + defensiveEquipment);
+                            break;
+                        default:
+                            message("No update made");
+                            continueUpdating();
+                    }
+                    String sql = "UPDATE `character` SET type = ?, name = ?, lifePoints= ?, strength= ?, offensiveEquipment= ?, defensiveEquipment= ? WHERE id = ?";
+                    PreparedStatement preparedStatement = connexion.prepareStatement(sql);
+                    preparedStatement.setString(1, characterType);
+                    preparedStatement.setString(2, name);
+                    preparedStatement.setInt(3, lifePoints);
+                    preparedStatement.setInt(4, strength);
+                    preparedStatement.setString(5, offensiveEquipment);
+                    preparedStatement.setString(6, defensiveEquipment);
+                    preparedStatement.setInt(7, id);
+                    preparedStatement.executeUpdate();
                 }
-                // Préparer la requête UPDATE avec tous les paramètres
-                String sql = "UPDATE `character` SET type = ?, name = ?, lifePoints= ?, strength= ?, offensiveEquipment= ?, defensiveEquipment= ? WHERE id = ?";
-                PreparedStatement preparedStatement = connexion.prepareStatement(sql);
-                preparedStatement.setString(1, characterType);
-                preparedStatement.setString(2, name);
-                preparedStatement.setInt(3, lifePoints);
-                preparedStatement.setInt(4, strength);
-                preparedStatement.setString(5, offensiveEquipment);
-                preparedStatement.setString(6, defensiveEquipment);
-                preparedStatement.setInt(7, id);
-                preparedStatement.executeUpdate();
             } else {
                 message("This id doesn't exist");
             }
+
 
             connexion.close();
 
         } catch (SQLException e) {
             message(e.getMessage());
         }
+    }
+
+    private boolean continueUpdating() {
+        Scanner input = new Scanner(System.in);
+        message("Continue update? (yes/no)");
+        String update = input.nextLine();
+        if (update.equalsIgnoreCase("yes")) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }

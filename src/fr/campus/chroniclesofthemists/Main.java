@@ -10,12 +10,12 @@ import fr.campus.chroniclesofthemists.game.Menu;
 public class Main {
     public static void main(String[] args) throws IllegalAnswerException, CharacterOutOfBoundException {
         DBHeroes connexion = new DBHeroes();
+        Menu menu = new Menu();
+//        connexion.createHeroes(menu.getNewCharacter());
         connexion.getHeroes();
         connexion.editHeroes();
 
-        Menu menu = new Menu();
         //menu.updateCharacter();
-//        connexion.createHeroes(menu.getNewCharacter());
 
 //        Game game = new Game();
 //        game.playTurn();
