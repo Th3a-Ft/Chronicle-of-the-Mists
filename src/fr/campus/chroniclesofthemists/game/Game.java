@@ -7,10 +7,10 @@ import fr.campus.chroniclesofthemists.cell.*;
 import fr.campus.chroniclesofthemists.character.Character;
 import fr.campus.chroniclesofthemists.db.DBConnexion;
 import fr.campus.chroniclesofthemists.exception.CharacterOutOfBoundException;
-import fr.campus.chroniclesofthemists.exception.IllegalAnswerException;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Properties;
 
 
 /**
@@ -20,15 +20,16 @@ public class Game {
     private Menu menu;
     private Character character;
     private int playerPosition = 1;
-    private ArrayList<Cell> board;
+//    private ArrayList<Cell> board;
     private String gameState;
 
     /**
      * Create a new object Menu and call the createBoard() from the Menu class
      */
-    public Game() throws IllegalAnswerException {
+    public Game() {
         this.menu = new Menu();
-        this.createBoard();
+//        this.createBoard();
+        character= menu.getNewCharacter();
 
     }
 
@@ -36,53 +37,34 @@ public class Game {
      * Allow the player to move across the board
      * Create a new dice with a new value while the player position is under the size of the board
      */
-    public void playTurn() throws IllegalAnswerException {
+    public void playTurn()  {
 
-        character = menu.getNewCharacter();
+       // character = menu.getNewCharacter();
+        Board board = new Board();
+        ArrayList<Cell> newBoard=board.initBoard();
 
         try {
-            while (playerPosition != board.size()) {
-                if (playerPosition > board.size()) {
+            while (playerPosition != newBoard.size()) {
+                if (playerPosition > newBoard.size()) {
                     gameState = "done";
                     throw new CharacterOutOfBoundException(playerPosition);
                 } else {
-                    for (int i = 0; i < board.size(); i++) {
+                    for (int i = 0; i < newBoard.size()-1; i++) {
                         gameState = "in progress";
                         Dice dice = new Dice();
                         playerPosition += dice.getRollDice();
                         message("You are in the cell n°" + i);
                         message("Move " + dice.getRollDice());
-                        Cell cell = board.get(i);
+                        Cell cell = newBoard.get(i);
                         message(cell.toString());
                     }
                 }
             }
         } catch (CharacterOutOfBoundException error) {
-            error.getMessage();
             restartGame();
         }
     }
 
-    /**
-     * Create the board thanks to an ArrayList of Cell objects
-     */
-    public ArrayList<Cell> createBoard() {
-        board = new ArrayList<>();
-        while (board.size() < 10) {
-
-            EmptyCell emptyCell = new EmptyCell();
-            EnemyCell enemyCell = new EnemyCell();
-            WeaponCell weaponCell = new WeaponCell();
-            PotionCell potionCell = new PotionCell();
-
-            board.add(emptyCell);
-            board.add(enemyCell);
-            board.add(weaponCell);
-            board.add(potionCell);
-        }
-        message(board.size() + " cells created");
-        return board;
-    }
 
 
 }

@@ -1,8 +1,5 @@
 package fr.campus.chroniclesofthemists.db;
 
-import fr.campus.chroniclesofthemists.exception.IllegalAnswerException;
-
-
 
 public class DBConnexion {
     private static String URL = "jdbc:mysql://localhost:3306/COTM";
@@ -25,7 +22,7 @@ public class DBConnexion {
         return PASSWORD;
     }
 
-    public static void main(String[] args) throws IllegalAnswerException {
+    public static void main(String[] args)  {
 //        try (Connection connexion = DriverManager.getConnection(URL, USER, PASSWORD)) {
 //
 //            message("Connection established");

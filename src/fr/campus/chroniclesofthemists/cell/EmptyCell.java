@@ -12,7 +12,5 @@ public class EmptyCell extends Cell {
         return "Empty cell: keep going!";
     }
 
-    @Override
-    protected void applyEffect() {
-    }
+
 }

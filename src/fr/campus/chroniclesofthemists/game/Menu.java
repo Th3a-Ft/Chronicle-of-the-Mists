@@ -5,7 +5,7 @@ import fr.campus.chroniclesofthemists.character.Warrior;
 import fr.campus.chroniclesofthemists.character.Witcher;
 import fr.campus.chroniclesofthemists.db.DBConnexion;
 import fr.campus.chroniclesofthemists.db.DBHeroes;
-import fr.campus.chroniclesofthemists.exception.IllegalAnswerException;
+import fr.campus.chroniclesofthemists.exception.CharacterOutOfBoundException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -28,7 +28,7 @@ public class Menu {
      * The player can close the game at any time by typing "exit"
      * return object Character
      */
-    protected Character createCharacter() throws IllegalAnswerException {
+    protected Character createCharacter() {
         String characterChoice;
         Character character;
 
@@ -96,7 +96,7 @@ public class Menu {
         }
     }
 
-    public Character getNewCharacter() throws IllegalAnswerException {
+    public Character getNewCharacter() {
         return createCharacter();
     }
 
@@ -108,17 +108,9 @@ public class Menu {
      * @return (string) : the text entered by the player if correct
      */
     private String validateAnswer(String answer) {
-        Scanner input = new Scanner(System.in);
-        while (!answer.equalsIgnoreCase("Warrior") && !answer.equalsIgnoreCase("Witcher") && !answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No"))
-            try {
-                if (!answer.equalsIgnoreCase("Warrior") && !answer.equalsIgnoreCase("Witcher") && !answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No")) {
-                    throw new IllegalAnswerException(answer);
-                }
-            } catch (IllegalAnswerException error) {
-                //error.IllegalAnswerException();
-                message(error.getMessage());
-                answer = exitGame(input);
-            }
+        while (!answer.equalsIgnoreCase("Warrior") && !answer.equalsIgnoreCase("Witcher") && !answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No")) {
+            message("This text: " + answer + " is not valid! Please try again.");
+        }
         return answer;
     }
 
@@ -140,7 +132,7 @@ public class Menu {
     /**
      * At the end of the game, the player can restart or exit the game
      */
-    public static void restartGame() throws IllegalAnswerException {
+    public static void restartGame() {
         Scanner input = new Scanner(System.in);
         message("Do you want to restart (type \"restart\") or close (type \"exit\") the game?");
 
@@ -156,6 +148,29 @@ public class Menu {
         } else {
             System.exit(0);
         }
+    }
+
+    public void startGame() throws CharacterOutOfBoundException {
+        message("Do you want to start the game, create a new character, choose an already existing character? (type the number)");
+        message("1 - Start the game");
+        message("2 - Create a new character");
+        message("3 - Choose a character");
+
+        int choice = input.nextInt();
+
+        switch (choice) {
+            case 1:
+                Game game = new Game();
+                game.playTurn();
+                break;
+            case 2:
+                Menu menu = new Menu();
+                menu.createCharacter();
+                break;
+            case 3:
+                DBHeroes DBHeroes = new DBHeroes();
+
+                break;
     }
 
 }

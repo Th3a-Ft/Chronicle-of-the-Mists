@@ -1,8 +1,7 @@
 package fr.campus.chroniclesofthemists.db;
 
 import fr.campus.chroniclesofthemists.cell.*;
-//import fr.campus.chroniclesofthemists.equipment.Potion;
-import fr.campus.chroniclesofthemists.exception.IllegalAnswerException;
+import fr.campus.chroniclesofthemists.game.Board;
 import fr.campus.chroniclesofthemists.game.Game;
 
 import java.sql.Connection;
@@ -15,15 +14,13 @@ import static fr.campus.chroniclesofthemists.game.Menu.message;
 
 public class DBBoard extends DBConnexion {
     public DBBoard() {
-    }
+    };
 
-    ;
-
-    public void BoardToDB(Game game) {
+    public void boardToDB(Board initBoard) {
         try (Connection connexion = DriverManager.getConnection(getURL(), getUser(), getPassword())) {
-            PreparedStatement statement = connexion.prepareStatement("INSERT INTO `board`(cell, effect, type) VALUES (?, ?, ?)");
+            PreparedStatement statement = connexion.prepareStatement("INSERT INTO `board`(cellNumber, effect, type) VALUES (?, ?, ?)");
 
-            ArrayList<Cell> board = game.createBoard();
+            ArrayList<Cell> board = initBoard.initBoard();
 
             for (int i = 0; i < board.size(); i++) {
                 Cell cell = board.get(i);

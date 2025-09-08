@@ -35,9 +35,7 @@ public class EnemyCell extends Cell {
         return "Oh no! " + this.TypeOfEnemy() + "! You have to beat him!";
     }
 
-    @Override
-    protected void applyEffect() {
-    }
+
 
     //Player attaque en premier si HP ennemi > attackPlayer alors
 //ennemi attaque puis fuis

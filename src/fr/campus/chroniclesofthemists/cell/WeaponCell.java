@@ -29,7 +29,5 @@ public class WeaponCell extends Cell {
         return "You found a " +this.TypeOfWeapon()+"!";
     }
 
-    @Override
-    protected void applyEffect() {
-    }
+
 }

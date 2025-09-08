@@ -3,7 +3,6 @@ package fr.campus.chroniclesofthemists.db;
 import fr.campus.chroniclesofthemists.character.Character;
 import fr.campus.chroniclesofthemists.character.Warrior;
 import fr.campus.chroniclesofthemists.character.Witcher;
-import fr.campus.chroniclesofthemists.exception.IllegalAnswerException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -56,7 +55,7 @@ public class DBHeroes extends DBConnexion {
         return heroes;
     }
 
-    public void createHeroes(Character character) throws IllegalAnswerException {
+    public void createHeroes(Character character) {
         try (Connection connexion = DriverManager.getConnection(getURL(), getUser(), getPassword())) {
             PreparedStatement statement = connexion.prepareStatement("INSERT INTO `character`(type,name,lifePoints,strength,offensiveEquipment,defensiveEquipment) VALUES (?, ?,?,?,?,?) ");
 

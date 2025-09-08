@@ -31,7 +31,5 @@ public class PotionCell extends Cell {
         return "You found a " + this.TypeOfPotion()+"!";
     }
 
-    @Override
-    protected void applyEffect() {
-    }
+
 }

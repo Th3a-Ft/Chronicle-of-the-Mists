@@ -1,10 +1,16 @@
 package fr.campus.chroniclesofthemists.cell;
 
+import fr.campus.chroniclesofthemists.character.Warrior;
+import fr.campus.chroniclesofthemists.character.Witcher;
+import fr.campus.chroniclesofthemists.character.Character;
+
+import static fr.campus.chroniclesofthemists.game.Menu.message;
+
 /**
  * Class cell from whom all the cells are going to herit
  */
 
-abstract public class Cell {
+abstract public class Cell implements ICell {
     private String type;
 
     /**
@@ -12,7 +18,7 @@ abstract public class Cell {
      *
      */
     public Cell(String type) {
-        this.type=type;
+        this.type = type;
     }
 
     /**
@@ -22,17 +28,14 @@ abstract public class Cell {
      */
     abstract protected String effect();
 
-    /**
-     * Apply the effect of the cell (weapon, potion, enemy) to the game
-     */
-    abstract protected void applyEffect();
 
     /**
      * get the effect of the cell
      *
      * @return (string)
      */
-    protected String getEffect() {
+    @Override
+    public String getEffect() {
         return effect();
     }
 
@@ -43,7 +46,16 @@ abstract public class Cell {
      */
     @Override
     public String toString() {
-        return getEffect();
+        return effect();
+    }
+
+    @Override
+    public void interact(Character character) {
+        if (character instanceof Witcher) {
+            message("This equipment is for a wizard.");
+        } else if (character instanceof Warrior) {
+            message("This equipment is for a warrior.");
+        }
     }
 
 }
