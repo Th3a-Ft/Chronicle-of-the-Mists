@@ -43,7 +43,7 @@ public class Game {
        // character = menu.getNewCharacter();
 
         Board board = new Board();
-        ArrayList<Cell> newBoard=board.initBoard();
+        ArrayList<Cell> newBoard=board.initBoard(64,16,8,24);
 
         try {
             while (playerPosition != newBoard.size()) {

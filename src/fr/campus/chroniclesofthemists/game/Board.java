@@ -3,6 +3,8 @@ package fr.campus.chroniclesofthemists.game;
 import fr.campus.chroniclesofthemists.cell.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Scanner;
 
 import static fr.campus.chroniclesofthemists.game.Menu.message;
@@ -11,30 +13,32 @@ public class Board {
     private ArrayList<Cell> board;
 
     public Board() {
-        this.initBoard();
+        this.initBoard(64,16,8,24);
     }
 
-    public ArrayList<Cell> initBoard() {
+    public ArrayList<Cell> initBoard(int nbreTotalCells,int nbreWeaponCells, int nbrePotionCells,int nbreEnemyCells) {
         board = new ArrayList<>();
 
-        while (board.size() < 2) {
-//            for (int i = 0; i <= 16; i++) {
-//                WeaponCell weaponCell = new WeaponCell();
-//                board.add(weaponCell);
-//            }
-//            for (int i = 0; i <= 8; i++) {
-//                PotionCell potionCell = new PotionCell();
-//                board.add(potionCell);
-//            }
-//            for (int i = 0; i <= 24; i++) {
+        int nbreEmptyCells = nbreTotalCells - (nbreEnemyCells+nbrePotionCells+nbreWeaponCells);
+
+            for (int i = 0; i < nbreWeaponCells; i++) {
+                WeaponCell weaponCell = new WeaponCell();
+                board.add(weaponCell);
+            }
+            for (int i = 0; i < nbrePotionCells; i++) {
+                PotionCell potionCell = new PotionCell();
+                board.add(potionCell);
+            }
+            for (int i = 0; i < nbreEnemyCells; i++) {
                 EnemyCell enemyCell = new EnemyCell();
                 board.add(enemyCell);
-//            }
-
-            EmptyCell emptyCell = new EmptyCell();
-            board.add(emptyCell);
-        }
+            }
+            for (int i = 0; i < nbreEmptyCells; i++) {
+                EmptyCell emptyCell = new EmptyCell();
+                board.add(emptyCell);
+            }
         message(board.size() + " cells created");
+        Collections.shuffle(board);
         return board;
     }
 

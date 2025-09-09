@@ -14,15 +14,13 @@ import static fr.campus.chroniclesofthemists.game.Menu.message;
 
 public class DBBoard extends DBConnexion {
     public DBBoard() {
-    }
-
-    ;
+    };
 
     public void boardToDB(Board initBoard) {
         try (Connection connexion = DriverManager.getConnection(getURL(), getUser(), getPassword())) {
             PreparedStatement statement = connexion.prepareStatement("INSERT INTO `board`(cellNumber, effect, type) VALUES (?, ?, ?)");
 
-            ArrayList<Cell> board = initBoard.initBoard();
+            ArrayList<Cell> board = initBoard.initBoard(64,16,8,24);
 
             for (int i = 0; i < board.size(); i++) {
                 Cell cell = board.get(i);
