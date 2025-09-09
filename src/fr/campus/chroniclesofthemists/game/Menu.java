@@ -3,6 +3,7 @@ package fr.campus.chroniclesofthemists.game;
 import fr.campus.chroniclesofthemists.character.Character;
 import fr.campus.chroniclesofthemists.character.Warrior;
 import fr.campus.chroniclesofthemists.character.Witcher;
+import fr.campus.chroniclesofthemists.db.DBBoard;
 import fr.campus.chroniclesofthemists.db.DBConnexion;
 import fr.campus.chroniclesofthemists.db.DBHeroes;
 import fr.campus.chroniclesofthemists.exception.CharacterOutOfBoundException;
@@ -47,7 +48,6 @@ public class Menu {
 
             String changeType = exitGame(input);
             changeType = validateAnswer(changeType);
-            //changeType = validateAnswer(changeType);
 
             if (changeType.equalsIgnoreCase("No")) {
                 message("Change the type of your character (type Warrior or Witcher):");
@@ -83,13 +83,13 @@ public class Menu {
                 character = new Witcher(name);
                 message("type : " + character.setType());
                 message(character.toString());
-                message("Your character " + character.getName() + " the " + character.getType() + " has been saved.");
+                message("Your character " + character.getName() + " the " + characterChoice + " has been saved.");
                 return character;
 
             } else {
                 character = new Warrior(name);
                 message(character.toString());
-                message("Your character " + character.getName() + " the " + character.getType() + " has been saved.");
+                message("Your character " + character.getName() + " the " + characterChoice + " has been saved.");
                 return character;
             }
 
@@ -150,27 +150,24 @@ public class Menu {
         }
     }
 
-    public void startGame() throws CharacterOutOfBoundException {
+    public void startGame() {
         message("Do you want to start the game, create a new character, choose an already existing character? (type the number)");
-        message("1 - Start the game");
-        message("2 - Create a new character");
-        message("3 - Choose a character");
+        message("1 - Create a new character");
+        message("2 - Choose a character");
 
         int choice = input.nextInt();
 
         switch (choice) {
             case 1:
-                Game game = new Game();
-                game.playTurn();
-                break;
-            case 2:
                 Menu menu = new Menu();
                 menu.createCharacter();
                 break;
-            case 3:
+            case 2:
                 DBHeroes DBHeroes = new DBHeroes();
-
+                DBHeroes.getHeroes();
+                DBHeroes.editHeroes();
                 break;
-    }
 
+        }
+    }
 }

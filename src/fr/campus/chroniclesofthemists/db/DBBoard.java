@@ -14,7 +14,9 @@ import static fr.campus.chroniclesofthemists.game.Menu.message;
 
 public class DBBoard extends DBConnexion {
     public DBBoard() {
-    };
+    }
+
+    ;
 
     public void boardToDB(Board initBoard) {
         try (Connection connexion = DriverManager.getConnection(getURL(), getUser(), getPassword())) {
@@ -46,7 +48,7 @@ public class DBBoard extends DBConnexion {
             connexion.close();
 
         } catch (SQLException e) {
-            message(e.getMessage());
+            e.getMessage();
         }
     }
 

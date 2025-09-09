@@ -29,7 +29,8 @@ public class Game {
     public Game() {
         this.menu = new Menu();
 //        this.createBoard();
-        character= menu.getNewCharacter();
+        menu.startGame();
+//        character= menu.getNewCharacter();
 
     }
 
@@ -40,6 +41,7 @@ public class Game {
     public void playTurn()  {
 
        // character = menu.getNewCharacter();
+
         Board board = new Board();
         ArrayList<Cell> newBoard=board.initBoard();
 

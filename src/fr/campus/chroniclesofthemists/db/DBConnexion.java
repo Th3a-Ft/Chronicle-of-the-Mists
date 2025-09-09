@@ -3,10 +3,10 @@ package fr.campus.chroniclesofthemists.db;
 
 public class DBConnexion {
     private static String URL = "jdbc:mysql://localhost:3306/COTM";
-    //private static String USER = "theaf";
-    private static String USER = "root";
-    //private static String PASSWORD = "theaf";
-    private static String PASSWORD = "root";
+    private static String USER = "theaf";
+//    private static String USER = "root";
+    private static String PASSWORD = "theaf";
+ //   private static String PASSWORD = "root";
 
     public DBConnexion() {};
 

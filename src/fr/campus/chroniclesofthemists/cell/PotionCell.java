@@ -1,10 +1,11 @@
 package fr.campus.chroniclesofthemists.cell;
 
 
+import fr.campus.chroniclesofthemists.character.Character;
 import fr.campus.chroniclesofthemists.equipment.GreatPotion;
 import fr.campus.chroniclesofthemists.equipment.StandardPotion;
 
-public class PotionCell extends Cell {
+public class PotionCell extends Cell implements ICell {
 
     public PotionCell(){
         super("potion");
@@ -31,5 +32,8 @@ public class PotionCell extends Cell {
         return "You found a " + this.TypeOfPotion()+"!";
     }
 
-
+    @Override
+    public void interact(Character character) {
+        super.interact(character);
+    }
 }

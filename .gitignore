@@ -1,5 +1,6 @@
 ### IntelliJ IDEA ###
-MainTest
+MainTest.java
+
 
 out/
 !**/src/main/**/out/

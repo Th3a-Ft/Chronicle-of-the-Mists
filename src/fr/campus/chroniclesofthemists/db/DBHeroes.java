@@ -67,8 +67,6 @@ public class DBHeroes extends DBConnexion {
             statement.setString(6, character.getDefensiveEquipment());
             statement.executeUpdate();
 
-            message("Creation successful");
-
             connexion.close();
 
         } catch (SQLException e) {

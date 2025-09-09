@@ -1,10 +1,11 @@
 package fr.campus.chroniclesofthemists.cell;
 
+import fr.campus.chroniclesofthemists.character.Character;
 import fr.campus.chroniclesofthemists.enemy.Dragon;
 import fr.campus.chroniclesofthemists.enemy.Goblin;
 import fr.campus.chroniclesofthemists.enemy.Wizard;
 
-public class EnemyCell extends Cell {
+public class EnemyCell extends Cell implements ICell  {
 
     public EnemyCell() {
         super("enemy");
@@ -35,7 +36,10 @@ public class EnemyCell extends Cell {
         return "Oh no! " + this.TypeOfEnemy() + "! You have to beat him!";
     }
 
-
+    @Override
+    public void interact(Character character) {
+        super.interact(character);
+    }
 
     //Player attaque en premier si HP ennemi > attackPlayer alors
 //ennemi attaque puis fuis

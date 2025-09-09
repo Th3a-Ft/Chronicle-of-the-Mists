@@ -1,6 +1,7 @@
 package fr.campus.chroniclesofthemists.cell;
 
 
+import fr.campus.chroniclesofthemists.character.Character;
 import fr.campus.chroniclesofthemists.equipment.Club;
 import fr.campus.chroniclesofthemists.equipment.Sword;
 
@@ -29,5 +30,8 @@ public class WeaponCell extends Cell {
         return "You found a " +this.TypeOfWeapon()+"!";
     }
 
-
+    @Override
+    public void interact(Character character) {
+        super.interact(character);
+    }
 }

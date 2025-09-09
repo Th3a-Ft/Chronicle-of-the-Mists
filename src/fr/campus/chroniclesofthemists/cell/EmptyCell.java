@@ -1,6 +1,8 @@
 package fr.campus.chroniclesofthemists.cell;
 
-public class EmptyCell extends Cell {
+import fr.campus.chroniclesofthemists.character.Character;
+
+public class EmptyCell extends Cell implements ICell{
 
     public EmptyCell() {
         super("empty");
@@ -12,5 +14,8 @@ public class EmptyCell extends Cell {
         return "Empty cell: keep going!";
     }
 
-
+    @Override
+    public void interact(Character character) {
+        super.interact(character);
+    }
 }
